@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import useDeferredFetchEmployeesByManager from "../Hooks/useDeferredFetchEmployessByManager";
 import IEmployee from "../Interfaces/Employee";
 import EmployeeTreeitem from "./EmployeeTreeItem";
@@ -6,6 +6,17 @@ import EmployeeTreeitem from "./EmployeeTreeItem";
 const EmployeeTree = ({root}: {root: IEmployee}) => {
     const { id } = root;
     const { data, isPending, run } = useDeferredFetchEmployeesByManager(id);
+    const [isCollapsed, setCollapsed] = useState(true);
+
+    const fetchEmployees = () => {
+        const newValue = !isCollapsed;
+
+        setCollapsed(newValue);
+
+        if (!newValue) {
+            run();
+        }
+    };
 
     const leafs =
         !isPending &&
@@ -19,8 +30,8 @@ const EmployeeTree = ({root}: {root: IEmployee}) => {
 
     return (
             <li>
-                <EmployeeTreeitem employee={root} isPending={isPending} fetchEmployeesFn={run}/>
-                {leafs}
+                <EmployeeTreeitem employee={root} isPending={isPending} fetchEmployeesFn={fetchEmployees}/>
+                {!isCollapsed && leafs}
             </li>
     );
 };
