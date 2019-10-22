@@ -4,9 +4,7 @@ import EmployeeTreeView from "./Components/EmployeeTreeView";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
       <EmployeeTreeView />
-    </div>
   );
 };
 

@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
-import EmployeeTreeitem from "./EmployeeTreeItem";
 import EmployeeTree from "./EmployeeTree";
 
 const Tree = styled.div`
 * {margin: 0; padding: 0;}
+overflow: scroll;
+width: 100%;
+min-width: 2500px;
 
  ul {
     padding-top: 20px; position: relative;
@@ -87,19 +89,17 @@ li button:hover+ul::before,
 li button:hover+ul ul::before{
 border-color:  #94a0b4;
 }
-
-
 `;
 
 const EmployeeTreeView = () => {
     const { data, isPending } = useFetchEmployeesByManager(0);
 
     return (
-            <Tree>
-                <ul>
-                    { !isPending && <EmployeeTree root={data[0]}/> }
-                </ul>
-            </Tree>
+        <Tree>
+            <ul>
+                { !isPending && <EmployeeTree root={data[0]}/> }
+            </ul>
+        </Tree>
     );
 };
 

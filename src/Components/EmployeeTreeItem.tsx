@@ -5,6 +5,7 @@ import IEmployee from "../Interfaces/Employee";
 
 const EmployeeButton = styled(Button)`
     position: relative;
+    font-size: 14px;
     
       &:before {
         content: '';
