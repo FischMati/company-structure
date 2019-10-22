@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Button } from "reactstrap";
 import styled from "styled-components";
+import useFetchEmployeesByManager from "../Hooks/useFetchEmployessByManager";
 
 const EmployeeButton = styled(Button)`
     position: relative;
@@ -27,7 +28,6 @@ const EmployeeButton = styled(Button)`
         cursor: not-allowed;
         
         &:before {
-          transition-delay: 0.5s;
           transition-duration: 1s;
           opacity: 1;
         }
@@ -52,15 +52,18 @@ const EmployeeButton = styled(Button)`
 const EmployeeTreeitem =
     () => {
         const [btnState, setBtnState] = useState("");
+        const { data, error, isPending, run } = useFetchEmployeesByManager(0, {
+            defer: true,
+            onResolve: () => {
+                setBtnState("");
+            },
+        });
 
         const onClick = (e: Event) => {
             e.preventDefault();
 
             setBtnState("sending");
-
-            setTimeout(() =>
-                setBtnState("")
-            , 4500);
+            run();
         };
 
         return (
