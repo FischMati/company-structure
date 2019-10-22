@@ -1,4 +1,4 @@
-import useFetchEmployeesByManager from "./useFetchEmployessByManager";
+import useFetchEmployeesByManager from "./useFetchEmployeesByManager";
 
 const useDeferredFetchEmployeesByManager =
     (managerId: number) =>
