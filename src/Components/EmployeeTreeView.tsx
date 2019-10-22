@@ -8,6 +8,7 @@ const Tree = styled.div`
 overflow: scroll;
 width: 100%;
 min-width: 2500px;
+min-height: 2000px;
 
  ul {
     padding-top: 20px; position: relative;
