@@ -51,18 +51,13 @@ const EmployeeButton = styled(Button)`
 
 const EmployeeTreeitem =
     () => {
-        const [btnState, setBtnState] = useState("");
         const { data, error, isPending, run } = useFetchEmployeesByManager(0, {
             defer: true,
-            onResolve: () => {
-                setBtnState("");
-            },
         });
 
         const onClick = (e: Event) => {
             e.preventDefault();
 
-            setBtnState("sending");
             run();
         };
 
@@ -72,7 +67,7 @@ const EmployeeTreeitem =
                 color="primary"
                 size="lg"
                 onClick={onClick}
-                className={btnState}
+                className={isPending ? "sending" : ""}
                 block
             >
                 Click me
