@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import { Button } from "reactstrap";
 import styled from "styled-components";
-import useFetchEmployeesByManager from "../Hooks/useFetchEmployessByManager";
 import useDeferredFetchEmployeesByManager from "../Hooks/useDeferredFetchEmployessByManager";
+import IEmployee from "../Interfaces/Employee";
 
 const EmployeeButton = styled(Button)`
     position: relative;
@@ -50,9 +50,17 @@ const EmployeeButton = styled(Button)`
     }
 `;
 
+interface IProps {
+    employee: IEmployee;
+}
+
 const EmployeeTreeitem =
-    () => {
-        const { isPending, run } = useDeferredFetchEmployeesByManager(0);
+    ({employee: {
+        id,
+        first,
+        last,
+    }}: IProps) => {
+        const { isPending, run } = useDeferredFetchEmployeesByManager(id);
 
         return (
             <EmployeeButton
@@ -63,7 +71,7 @@ const EmployeeTreeitem =
                 className={isPending ? "sending" : ""}
                 block
             >
-                Click me
+                {`${first} ${last}`}
             </EmployeeButton>
         );
     };
