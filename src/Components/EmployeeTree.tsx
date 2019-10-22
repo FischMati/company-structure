@@ -4,10 +4,6 @@ import IEmployee from "../Interfaces/Employee";
 import Employee from "../Interfaces/Employee";
 import EmployeeTreeitem from "./EmployeeTreeItem";
 
-const anyEmployees =
-    (employees?: Employee[]) =>
-        employees && employees.length > 0;
-
 const toLeafs =
     (employees: Employee[]) =>
         employees.map(
@@ -31,7 +27,8 @@ const EmployeeTree = ({root}: {root: IEmployee}) => {
     };
 
     const leafs =
-        anyEmployees(employees) &&
+        employees &&
+        employees.length > 0 &&
         (<ul>
             {toLeafs(employees)}
         </ul>);

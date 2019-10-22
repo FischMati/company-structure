@@ -1,11 +1,10 @@
 import React from "react";
-import {useAsync} from "react-async";
-import {fetchByManager} from "../API/Employees";
+import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
 import Tree from "../Styles/Tree";
 import EmployeeTree from "./EmployeeTree";
 
 const EmployeeTreeView = () => {
-    const { data } = useAsync(fetchByManager, { managerId: 0} );
+    const { data } = useFetchEmployeesByManager(0);
 
     return (
         <Tree>
