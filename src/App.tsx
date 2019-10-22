@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import EmployeeTree from "./Components/EmployeeTree";
+import EmployeeTreeView from "./Components/EmployeeTreeView";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <EmployeeTree />
+      <EmployeeTreeView />
     </div>
   );
 };

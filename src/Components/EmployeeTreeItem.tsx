@@ -52,22 +52,24 @@ const EmployeeButton = styled(Button)`
 
 interface IProps {
     employee: IEmployee;
+    fetchEmployeesFn: () => void;
+    isPending: boolean;
 }
 
 const EmployeeTreeitem =
     ({employee: {
-        id,
         first,
         last,
-    }}: IProps) => {
-        const { isPending, run } = useDeferredFetchEmployeesByManager(id);
-
+    },
+     isPending,
+     fetchEmployeesFn,
+    }: IProps) => {
         return (
             <EmployeeButton
                 outline
                 color="primary"
                 size="lg"
-                onClick={run}
+                onClick={fetchEmployeesFn}
                 className={isPending ? "sending" : ""}
                 block
             >
