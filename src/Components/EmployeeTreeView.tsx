@@ -89,6 +89,18 @@ li button:hover+ul::before,
 li button:hover+ul ul::before{
 border-color:  #94a0b4;
 }
+
+@media only screen and ( max-width: 1500px ) {
+    button {
+        font-size: 12px;
+    }
+}
+
+@media only screen and ( max-width: 1000px ) {
+    button {
+        font-size: 10px;
+    }
+}
 `;
 
 const EmployeeTreeView = () => {

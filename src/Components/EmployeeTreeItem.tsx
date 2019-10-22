@@ -10,7 +10,7 @@ const EmployeeButton = styled(Button)`
       &:before {
         content: '';
         position: absolute;
-        right: 16px;
+        right: 5px;
         top: 50%;
         margin-top: -12px;
         width: 24px;
@@ -71,7 +71,9 @@ const EmployeeTreeitem =
                 onClick={fetchEmployeesFn}
                 className={isPending ? "sending" : ""}
             >
-                {`${first} ${last}`}
+                <div style={{paddingLeft: "28px", paddingRight: "28px"}}>
+                    {`${first} ${last}`}
+                </div>
             </EmployeeButton>
         );
     };
