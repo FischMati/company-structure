@@ -9,12 +9,14 @@ const EmployeeTree = ({root}: {root: IEmployee}) => {
     const [isCollapsed, setCollapsed] = useState(true);
 
     const fetchEmployees = () => {
-        const newValue = !isCollapsed;
+        if (!isPending) {
+            const newValue = !isCollapsed;
 
-        setCollapsed(newValue);
+            setCollapsed(newValue);
 
-        if (!newValue) {
-            run();
+            if (!newValue) {
+                run();
+            }
         }
     };
 

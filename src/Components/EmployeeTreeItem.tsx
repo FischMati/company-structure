@@ -23,10 +23,7 @@ const EmployeeButton = styled(Button)`
         transition: opacity 0.5s;
         animation: 0.8s linear infinite rotate;
       }
-      &.sending{
-        pointer-events: none;
-        cursor: not-allowed;
-        
+      &.sending{        
         &:before {
           transition-duration: 1s;
           opacity: 1;
