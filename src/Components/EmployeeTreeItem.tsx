@@ -1,13 +1,11 @@
 import React from "react";
 import { Button } from "reactstrap";
 import styled from "styled-components";
-import useDeferredFetchEmployeesByManager from "../Hooks/useDeferredFetchEmployessByManager";
 import IEmployee from "../Interfaces/Employee";
 
 const EmployeeButton = styled(Button)`
     position: relative;
-    max-width: 500px;
-      
+    
       &:before {
         content: '';
         position: absolute;
@@ -71,7 +69,6 @@ const EmployeeTreeitem =
                 size="lg"
                 onClick={fetchEmployeesFn}
                 className={isPending ? "sending" : ""}
-                block
             >
                 {`${first} ${last}`}
             </EmployeeButton>
