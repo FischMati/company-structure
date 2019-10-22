@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Button } from "reactstrap";
 import styled from "styled-components";
 import useFetchEmployeesByManager from "../Hooks/useFetchEmployessByManager";
+import useDeferredFetchEmployeesByManager from "../Hooks/useDeferredFetchEmployessByManager";
 
 const EmployeeButton = styled(Button)`
     position: relative;
@@ -51,22 +52,14 @@ const EmployeeButton = styled(Button)`
 
 const EmployeeTreeitem =
     () => {
-        const { data, error, isPending, run } = useFetchEmployeesByManager(0, {
-            defer: true,
-        });
-
-        const onClick = (e: Event) => {
-            e.preventDefault();
-
-            run();
-        };
+        const { isPending, run } = useDeferredFetchEmployeesByManager(0);
 
         return (
             <EmployeeButton
                 outline
                 color="primary"
                 size="lg"
-                onClick={onClick}
+                onClick={run}
                 className={isPending ? "sending" : ""}
                 block
             >
