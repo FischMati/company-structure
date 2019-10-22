@@ -20,30 +20,30 @@ const EmployeeTree = ({root}: {root: IEmployee}) => {
     const { data: employees, isPending, run } = useDeferredFetchEmployeesByManager(id);
     const [isCollapsed, setCollapsed] = useState(true);
 
-    const fetchEmployees = () => {
-        if (!isPending) {
-            const newValue = !isCollapsed;
+    const onRootClick = () => {
+        const triggersFetch = !isCollapsed;
 
-            setCollapsed(newValue);
+        setCollapsed(triggersFetch);
 
-            if (!newValue) {
-                run();
-            }
+        if (!triggersFetch) {
+            run();
         }
     };
 
     const leafs =
-        !isPending &&
         anyEmployees(employees) &&
         (<ul>
-            {employees.map((employee: IEmployee) =>
-                (<EmployeeTree root={employee}/>),
-            )}
+            {toLeafs(employees)}
         </ul>);
 
     return (
             <li>
-                <EmployeeTreeitem employee={root} isPending={isPending} fetchEmployeesFn={fetchEmployees}/>
+                <EmployeeTreeitem
+                    employee={root}
+                    isPending={isPending}
+                    onClick={onRootClick}
+                />
+
                 {!isCollapsed && leafs}
             </li>
     );

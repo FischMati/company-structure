@@ -1,12 +1,18 @@
 import React from "react";
+import styled from "styled-components";
 import IEmployee from "../Interfaces/Employee";
 import {EmployeeButton} from "../Styles/EmployeeButton";
 
 interface IProps {
     employee: IEmployee;
-    fetchEmployeesFn: () => void;
+    onClick: () => void;
     isPending: boolean;
 }
+
+const ButtonContent = styled.div`
+    padding-left: 28px;
+    padding-right: 28px;
+`;
 
 const EmployeeTreeitem =
     ({employee: {
@@ -14,19 +20,19 @@ const EmployeeTreeitem =
         last,
     },
      isPending,
-     fetchEmployeesFn,
+     onClick,
     }: IProps) => {
         return (
             <EmployeeButton
                 outline
                 color="primary"
                 size="lg"
-                onClick={fetchEmployeesFn}
+                onClick={!isPending && onClick}
                 className={isPending ? "sending" : ""}
             >
-                <div style={{paddingLeft: "28px", paddingRight: "28px"}}>
+                <ButtonContent>
                     {`${first} ${last}`}
-                </div>
+                </ButtonContent>
             </EmployeeButton>
         );
     };
