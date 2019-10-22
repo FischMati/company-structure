@@ -1,15 +1,16 @@
 import React from "react";
-import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
+import {useAsync} from "react-async";
+import {fetchByManager} from "../API/Employees";
 import Tree from "../Styles/Tree";
 import EmployeeTree from "./EmployeeTree";
 
 const EmployeeTreeView = () => {
-    const { data, isPending } = useFetchEmployeesByManager(0);
+    const { data } = useAsync(fetchByManager, { managerId: 0} );
 
     return (
         <Tree>
             <ul>
-                { !isPending && <EmployeeTree root={data[0]}/> }
+                { data && <EmployeeTree root={data[0]}/> }
             </ul>
         </Tree>
     );
