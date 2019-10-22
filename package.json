@@ -7,9 +7,10 @@
     "@types/node": "12.11.2",
     "@types/react": "16.9.9",
     "@types/react-dom": "16.9.2",
+    "@types/reactstrap": "^8.0.5",
+    "@types/styled-components": "^4.1.19",
+    "bootstrap": "^4.3.1",
     "npm": "^6.12.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
     "react-scripts": "3.2.0",
     "styled-components": "^4.4.0",
     "typescript": "3.6.4"
@@ -37,6 +38,10 @@
     ]
   },
   "devDependencies": {
+    "react": "^16.10.2",
+    "react-async": "^9.0.0",
+    "react-dom": "^16.10.2",
+    "reactstrap": "^8.1.1",
     "ts-lint": "^4.5.1"
   }
 }
