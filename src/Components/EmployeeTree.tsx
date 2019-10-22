@@ -75,6 +75,19 @@ li button {
  border-left: 1px solid #ccc;
  width: 0; height: 20px;
 }
+
+li button:hover+ul li button {
+ background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+}
+/*Connector styles on hover*/
+li button:hover+ul li::after, 
+li button:hover+ul li::before, 
+li button:hover+ul::before, 
+li button:hover+ul ul::before{
+border-color:  #94a0b4;
+}
+
+
 `;
 
 const EmployeeTree = () => {
