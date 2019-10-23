@@ -1,36 +1,43 @@
 import React, {useState} from "react";
+import {FetchOptions} from "react-async";
 import useDeferredFetchEmployeesByManager from "../Hooks/useDeferredFetchEmployessByManager";
 import IEmployee from "../Interfaces/Employee";
 import EmployeeTreeitem from "./EmployeeTreeItem";
 
 interface IToLeafsParams {
     employees: IEmployee[];
-    setError: (error?: Error) => void;
+    fetchOptions: FetchOptions<any>;
 }
 
 const toLeafs =
-    ({employees, setError}: IToLeafsParams) =>
+    ({employees, fetchOptions}: IToLeafsParams) =>
         employees.map(
             (employee: IEmployee) =>
-                (<EmployeeTree root={employee} setError={setError}/>),
+                (<EmployeeTree root={employee} fetchOptions={fetchOptions}/>),
         );
 
 interface IProps {
     root: IEmployee;
-    setError: (error?: Error) => void;
+    fetchOptions: FetchOptions<any>;
 }
 
-const EmployeeTree = ({root, setError}: IProps) => {
-    const { id } = root;
+const useCollapse = () => {
     const [isCollapsed, setCollapsed] = useState(true);
 
-    const fetchOptions = {
-        onResolve: () => setError(undefined),
-        onReject: (error: Error) => {
-            setCollapsed(true);
-            setError(error);
-        },
+    const toggleCollapsed = () => {
+        const willCollapse = !isCollapsed;
+
+        setCollapsed(willCollapse);
+
+        return willCollapse;
     };
+
+    return { isCollapsed, setCollapsed, toggleCollapsed };
+};
+
+const EmployeeTree = ({root, fetchOptions}: IProps) => {
+    const { id } = root;
+    const {isCollapsed, toggleCollapsed } = useCollapse();
 
     const {
         data: employees,
@@ -39,11 +46,7 @@ const EmployeeTree = ({root, setError}: IProps) => {
     } = useDeferredFetchEmployeesByManager(id, fetchOptions);
 
     const onRootClick = () => {
-        const willCollapse = !isCollapsed;
-
-        setCollapsed(willCollapse);
-
-        if (!willCollapse) {
+        if (!toggleCollapsed()) {
             run();
         }
     };
@@ -53,7 +56,7 @@ const EmployeeTree = ({root, setError}: IProps) => {
         employees.length > 0 &&
         !isCollapsed &&
         (<ul>
-            {toLeafs({employees, setError})}
+            {toLeafs({employees, fetchOptions})}
         </ul>);
 
     return (

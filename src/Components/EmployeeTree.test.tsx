@@ -10,12 +10,17 @@ describe("EmployeeTreeView", () => {
     const { fetch: fetchMock } = mockFetch();
     const rootEmployee = EmployeeFactory.build();
 
+    const props = {
+        root: rootEmployee,
+        setError: () => {},
+    };
+
     fetchMock.mockResponse(
         JSON.stringify([EmployeeFactory.build(), EmployeeFactory.build(), EmployeeFactory.build()]),
     );
 
     it("calls fetch on button click", async () => {
-        const mounted = mount(<EmployeeTree root={rootEmployee} />);
+        const mounted = mount(<EmployeeTree {...props} />);
 
         await clickButtonAsync(mounted);
 
@@ -26,7 +31,7 @@ describe("EmployeeTreeView", () => {
     });
 
     it("shows one leaf per employee returned", async () => {
-        const mounted = mount(<EmployeeTree root={rootEmployee} />);
+        const mounted = mount(<EmployeeTree {...props} />);
 
         await clickButtonAsync(mounted);
 
@@ -34,7 +39,7 @@ describe("EmployeeTreeView", () => {
     });
 
     it("collapses on second click", async () => {
-        const mounted = mount(<EmployeeTree root={rootEmployee} />);
+        const mounted = mount(<EmployeeTree {...props} />);
 
         await clickButtonAsync(mounted);
         await clickButtonAsync(mounted);
