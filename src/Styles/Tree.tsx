@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 const Tree = styled.div`
-    * {margin: 0; padding: 0;}
-    overflow: scroll;
-    width: 100%;
-    min-width: 2500px;
-    min-height: 2000px;
+    * {
+    margin: 0; padding: 0;
+    }
+    overflow-x: scroll;
+    width: max-content;
+    height: max-content;
     
      ul {
         padding-top: 20px; position: relative;
@@ -97,6 +98,12 @@ const Tree = styled.div`
     @media only screen and ( max-width: 1000px ) {
         button {
             font-size: 10px;
+        }
+    }
+    
+    @media only screen and ( max-width: 800px ) {
+        button {
+            font-size: 8px;
         }
     }
 `;
