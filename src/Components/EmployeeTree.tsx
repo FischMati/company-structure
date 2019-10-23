@@ -5,7 +5,7 @@ import EmployeeTreeitem from "./EmployeeTreeItem";
 
 interface IToLeafsParams {
     employees: IEmployee[];
-    setError: (error: Error) => void;
+    setError: (error?: Error) => void;
 }
 
 const toLeafs =
@@ -17,17 +17,30 @@ const toLeafs =
 
 interface IProps {
     root: IEmployee;
-    setError: (error: Error) => void;
+    setError: (error?: Error) => void;
+}
+
+const useFetchLeafs = (id, isCollapsed, setCollapsed, setError) => {
+    const fetchOptions = {
+        onResolve: () => setError(undefined),
+        onReject: (error: Error) => {
+            setCollapsed(true);
+            setError(error);
+        },
+    };
+
+    return useDeferredFetchEmployeesByManager(id, fetchOptions);
 }
 
 const EmployeeTree = ({root, setError}: IProps) => {
     const { id } = root;
-    const { data: employees, isPending, error, run } = useDeferredFetchEmployeesByManager(id);
     const [isCollapsed, setCollapsed] = useState(true);
 
-    if (error) {
-        setError(error);
-    }
+    const {
+        data: employees,
+        isPending,
+        run,
+    } = useFetchLeafs(id, isCollapsed, setCollapsed, setError);
 
     const onRootClick = () => {
         const willCollapse = !isCollapsed;
