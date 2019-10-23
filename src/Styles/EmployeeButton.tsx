@@ -5,7 +5,7 @@ export const EmployeeButton = styled(Button)`
     position: relative;
     font-size: 14px;
     z-index: 100;
-    
+
       &:before {
         content: '';
         position: absolute;
