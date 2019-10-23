@@ -1,27 +1,13 @@
-import React, {useState} from "react";
+import React from "react";
 import Alert from "reactstrap/lib/Alert";
 import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
+import useFetchError from "../Hooks/useFetchError";
 import Tree from "../Styles/Tree";
 import EmployeeTree from "./EmployeeTree";
 
-const useFetchError = () => {
-    const [fetchError, setFetchError]: [Error | undefined, any] = useState(undefined);
-
-    const fetchOptions = {
-        onResolve: () => setFetchError(undefined),
-        onReject: (error: Error) => {
-            setFetchError(error);
-        },
-    };
-
-    return { fetchError, fetchOptions };
-};
-
 const EmployeeTreeView = () => {
-    const { fetchError: rootError, fetchOptions: rootFetchOptions } = useFetchError();
     const { fetchError: childError, fetchOptions: childFetchOptions } = useFetchError();
-
-    const { data } = useFetchEmployeesByManager(0, rootFetchOptions);
+    const { data, error: rootError } = useFetchEmployeesByManager(0);
 
     return (
         <>

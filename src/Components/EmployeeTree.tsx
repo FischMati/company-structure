@@ -1,16 +1,17 @@
-import React, {useState} from "react";
+import React from "react";
 import {FetchOptions} from "react-async";
-import useDeferredFetchEmployeesByManager from "../Hooks/useDeferredFetchEmployessByManager";
+import useCollapse from "../Hooks/useCollapse";
+import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
 import IEmployee from "../Interfaces/Employee";
 import EmployeeTreeitem from "./EmployeeTreeItem";
 
-interface IToLeafsParams {
+interface IToLeavesParams {
     employees: IEmployee[];
     fetchOptions: FetchOptions<any>;
 }
 
-const toLeafs =
-    ({employees, fetchOptions}: IToLeafsParams) =>
+const toLeaves =
+    ({employees, fetchOptions}: IToLeavesParams) =>
         employees.map(
             (employee: IEmployee) =>
                 (<EmployeeTree root={employee} fetchOptions={fetchOptions}/>),
@@ -21,20 +22,6 @@ interface IProps {
     fetchOptions: FetchOptions<any>;
 }
 
-const useCollapse = () => {
-    const [isCollapsed, setCollapsed] = useState(true);
-
-    const toggleCollapsed = () => {
-        const willCollapse = !isCollapsed;
-
-        setCollapsed(willCollapse);
-
-        return willCollapse;
-    };
-
-    return { isCollapsed, setCollapsed, toggleCollapsed };
-};
-
 const EmployeeTree = ({root, fetchOptions}: IProps) => {
     const { id } = root;
     const {isCollapsed, toggleCollapsed } = useCollapse();
@@ -43,7 +30,7 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
         data: employees,
         isPending,
         run,
-    } = useDeferredFetchEmployeesByManager(id, fetchOptions);
+    } = useFetchEmployeesByManager(id, { defer: true, ...fetchOptions});
 
     const onRootClick = () => {
         if (!toggleCollapsed()) {
@@ -51,12 +38,13 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
         }
     };
 
-    const leafs =
+    const leaves =
         employees &&
         employees.length > 0 &&
         !isCollapsed &&
+        !isPending &&
         (<ul>
-            {toLeafs({employees, fetchOptions})}
+            {toLeaves({employees, fetchOptions})}
         </ul>);
 
     return (
@@ -67,7 +55,7 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
                     onClick={onRootClick}
                 />
 
-                {leafs}
+                {leaves}
             </li>
     );
 };
