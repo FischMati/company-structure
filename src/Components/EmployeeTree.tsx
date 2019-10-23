@@ -20,7 +20,10 @@ interface IProps {
     setError: (error?: Error) => void;
 }
 
-const useFetchLeafs = (id, isCollapsed, setCollapsed, setError) => {
+const EmployeeTree = ({root, setError}: IProps) => {
+    const { id } = root;
+    const [isCollapsed, setCollapsed] = useState(true);
+
     const fetchOptions = {
         onResolve: () => setError(undefined),
         onReject: (error: Error) => {
@@ -29,18 +32,11 @@ const useFetchLeafs = (id, isCollapsed, setCollapsed, setError) => {
         },
     };
 
-    return useDeferredFetchEmployeesByManager(id, fetchOptions);
-}
-
-const EmployeeTree = ({root, setError}: IProps) => {
-    const { id } = root;
-    const [isCollapsed, setCollapsed] = useState(true);
-
     const {
         data: employees,
         isPending,
         run,
-    } = useFetchLeafs(id, isCollapsed, setCollapsed, setError);
+    } = useDeferredFetchEmployeesByManager(id, fetchOptions);
 
     const onRootClick = () => {
         const willCollapse = !isCollapsed;
