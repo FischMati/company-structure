@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {mount} from "enzyme";
 import EmployeeTreeItemPropsFactory from "../Factories/EmployeeTreeItemProps";
-import {clickButton} from "../setupTests";
+import {clickButton} from "../test-utils";
 import EmployeeTreeitem from "./EmployeeTreeItem";
 
 describe("EmployeeTreeItem", () => {

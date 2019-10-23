@@ -3,7 +3,7 @@ import * as React from "react";
 import {mount} from "enzyme";
 import EmployeeFactory from "../Factories/EmployeeFactory";
 import {BASE_API} from "../routes";
-import {clickButton, clickButtonAsync, mockFetch, waitForAsync} from "../setupTests";
+import {clickButtonAsync, mockFetch} from "../test-utils";
 import EmployeeTree from "./EmployeeTree";
 
 describe("EmployeeTreeView", () => {
@@ -16,9 +16,8 @@ describe("EmployeeTreeView", () => {
 
     it("calls fetch on button click", async () => {
         const mounted = mount(<EmployeeTree root={rootEmployee} />);
-        clickButton(mounted);
 
-        await waitForAsync();
+        await clickButtonAsync(mounted);
 
         expect(fetchMock).toHaveBeenCalledWith(
             `${BASE_API}?manager=1`,
