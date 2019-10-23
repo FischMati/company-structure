@@ -1,7 +1,6 @@
 import {FetchOptions, useFetch} from "react-async";
 import IEmployee from "../Interfaces/Employee";
-
-const BASE_API = "https://2jdg5klzl0.execute-api.us-west-1.amazonaws.com/default/EmployeesChart-Api";
+import {BASE_API} from "../routes";
 
 const useFetchEmployeesByManager =
     (managerId: number, options?: FetchOptions<any>) =>

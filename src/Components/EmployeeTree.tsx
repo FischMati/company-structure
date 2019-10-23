@@ -4,6 +4,10 @@ import IEmployee from "../Interfaces/Employee";
 import Employee from "../Interfaces/Employee";
 import EmployeeTreeitem from "./EmployeeTreeItem";
 
+interface IProps {
+    root: IEmployee;
+}
+
 const toLeafs =
     (employees: Employee[]) =>
         employees.map(
@@ -11,17 +15,17 @@ const toLeafs =
                 (<EmployeeTree root={employee}/>),
         );
 
-const EmployeeTree = ({root}: {root: IEmployee}) => {
+const EmployeeTree = ({root}: IProps) => {
     const { id } = root;
     const { data: employees, isPending, run } = useDeferredFetchEmployeesByManager(id);
     const [isCollapsed, setCollapsed] = useState(true);
 
     const onRootClick = () => {
-        const triggersFetch = !isCollapsed;
+        const willCollapse = !isCollapsed;
 
-        setCollapsed(triggersFetch);
+        setCollapsed(willCollapse);
 
-        if (!triggersFetch) {
+        if (!willCollapse) {
             run();
         }
     };
@@ -29,6 +33,7 @@ const EmployeeTree = ({root}: {root: IEmployee}) => {
     const leafs =
         employees &&
         employees.length > 0 &&
+        !isCollapsed &&
         (<ul>
             {toLeafs(employees)}
         </ul>);
@@ -41,7 +46,7 @@ const EmployeeTree = ({root}: {root: IEmployee}) => {
                     onClick={onRootClick}
                 />
 
-                {!isCollapsed && leafs}
+                {leafs}
             </li>
     );
 };

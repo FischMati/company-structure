@@ -3,7 +3,7 @@ import styled from "styled-components";
 import IEmployee from "../Interfaces/Employee";
 import {EmployeeButton} from "../Styles/EmployeeButton";
 
-interface IProps {
+export interface IProps {
     employee: IEmployee;
     onClick: () => void;
     isPending: boolean;
