@@ -6,7 +6,7 @@ import {clickButton} from "../setupTests";
 import EmployeeTreeitem from "./EmployeeTreeItem";
 
 describe("EmployeeTreeItem", () => {
-    it("Renders a button with class sending if not pending", () => {
+    it("Renders a button without class sending if not pending", () => {
         const props = EmployeeTreeItemPropsFactory.build();
 
         const mounted = mount(<EmployeeTreeitem {...props} />);

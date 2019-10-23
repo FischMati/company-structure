@@ -1,5 +1,6 @@
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
+import {default as jest_fetch_mock, GlobalWithFetchMock} from "jest-fetch-mock";
 import * as React from "react";
 
 Enzyme.configure({adapter: new Adapter()});
@@ -30,3 +31,12 @@ export const clickButtonAsync =
         clickButton(mounted, at);
         await updateAsync(mounted);
     };
+
+export const mockFetch = () => {
+    const customGlobal: GlobalWithFetchMock = global as GlobalWithFetchMock;
+    // @ts-ignore
+    customGlobal.fetch = jest_fetch_mock;
+    customGlobal.fetchMock = customGlobal.fetch;
+
+    return { customGlobal, fetch: customGlobal.fetch };
+};
