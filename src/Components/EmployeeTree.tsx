@@ -1,24 +1,33 @@
 import React, {useState} from "react";
 import useDeferredFetchEmployeesByManager from "../Hooks/useDeferredFetchEmployessByManager";
 import IEmployee from "../Interfaces/Employee";
-import Employee from "../Interfaces/Employee";
 import EmployeeTreeitem from "./EmployeeTreeItem";
 
-interface IProps {
-    root: IEmployee;
+interface IToLeafsParams {
+    employees: IEmployee[];
+    setError: (error: Error) => void;
 }
 
 const toLeafs =
-    (employees: Employee[]) =>
+    ({employees, setError}: IToLeafsParams) =>
         employees.map(
             (employee: IEmployee) =>
-                (<EmployeeTree root={employee}/>),
+                (<EmployeeTree root={employee} setError={setError}/>),
         );
 
-const EmployeeTree = ({root}: IProps) => {
+interface IProps {
+    root: IEmployee;
+    setError: (error: Error) => void;
+}
+
+const EmployeeTree = ({root, setError}: IProps) => {
     const { id } = root;
-    const { data: employees, isPending, run } = useDeferredFetchEmployeesByManager(id);
+    const { data: employees, isPending, error, run } = useDeferredFetchEmployeesByManager(id);
     const [isCollapsed, setCollapsed] = useState(true);
+
+    if (error) {
+        setError(error);
+    }
 
     const onRootClick = () => {
         const willCollapse = !isCollapsed;
@@ -35,7 +44,7 @@ const EmployeeTree = ({root}: IProps) => {
         employees.length > 0 &&
         !isCollapsed &&
         (<ul>
-            {toLeafs(employees)}
+            {toLeafs({employees, setError})}
         </ul>);
 
     return (
