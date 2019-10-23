@@ -2,13 +2,10 @@ import * as React from "react";
 
 import {mount} from "enzyme";
 import EmployeeTreeItemPropsFactory from "../Factories/EmployeeTreeItemProps";
+import {clickButton} from "../setupTests";
 import EmployeeTreeitem from "./EmployeeTreeItem";
 
 describe("EmployeeTreeItem", () => {
-    const clickButton =
-        (mounted: any) =>
-            mounted.find("button").simulate("click");
-
     it("Renders a button with class sending if not pending", () => {
         const props = EmployeeTreeItemPropsFactory.build();
 
