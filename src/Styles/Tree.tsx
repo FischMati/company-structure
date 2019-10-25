@@ -5,7 +5,6 @@ const Tree = styled.div`
         margin: 0; padding: 0;
     }
     
-    overflow-x: scroll;
     width: max-content;
     min-height: 500px;
 
