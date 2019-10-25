@@ -24,12 +24,13 @@ interface IProps {
 
 const EmployeeTree = ({root, fetchOptions}: IProps) => {
     const { id } = root;
-    const {isCollapsed, toggleCollapsed } = useCollapse();
+    const {isCollapsed, setCollapsed, toggleCollapsed } = useCollapse();
 
     const {
         data: employees,
         isPending,
         isFulfilled,
+        isRejected,
         run,
     } = useFetchEmployeesByManager(id, { defer: true, ...fetchOptions});
 
@@ -39,6 +40,14 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
         }
     };
 
+    useEffect(() => {
+        const noEmployees = (employees && employees.length === 0);
+        
+        if (noEmployees || isRejected) {
+            setCollapsed(true);
+        }
+    }, [employees, isRejected, setCollapsed]);
+    
     const leaves =
         employees &&
         employees.length > 0 &&
