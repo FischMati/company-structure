@@ -41,7 +41,9 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
     };
 
     useEffect(() => {
-        if ((employees && employees.length === 0) || isRejected) {
+        const noEmployees = (employees && employees.length === 0);
+
+        if (noEmployees || isRejected) {
             setCollapsed(true);
         }
     }, [employees, isRejected, setCollapsed]);
