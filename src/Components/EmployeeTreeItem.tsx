@@ -10,8 +10,8 @@ export interface IProps {
 }
 
 const ButtonContent = styled.div`
-    padding-left: 28px;
-    padding-right: 28px;
+    padding-left: 14px;
+    padding-right: 14px;
 `;
 
 const EmployeeTreeitem =
@@ -26,7 +26,7 @@ const EmployeeTreeitem =
             <EmployeeButton
                 outline
                 color="primary"
-                size="lg"
+                size="sm"
                 onClick={!isPending && onClick}
                 className={isPending ? "sending" : ""}
             >
