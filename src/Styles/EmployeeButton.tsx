@@ -3,17 +3,16 @@ import styled from "styled-components";
 
 export const EmployeeButton = styled(Button)`
     position: relative;
-    font-size: 14px;
     z-index: 100;
 
       &:before {
         content: '';
         position: absolute;
-        right: 5px;
+        right: 4px;
         top: 50%;
-        margin-top: -12px;
-        width: 24px;
-        height: 24px;
+        margin-top: -9px;
+        width: 18px;
+        height: 18px;
         border: 2px solid;
         border-left-color: transparent;
         border-right-color: transparent;
