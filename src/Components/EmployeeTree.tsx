@@ -29,6 +29,7 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
     const {
         data: employees,
         isPending,
+        isFulfilled,
         run,
     } = useFetchEmployeesByManager(id, { defer: true, ...fetchOptions});
 
@@ -42,7 +43,7 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
         employees &&
         employees.length > 0 &&
         !isCollapsed &&
-        !isPending &&
+        isFulfilled &&
         (<ul>
             {toLeaves({employees, fetchOptions})}
         </ul>);
