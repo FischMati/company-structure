@@ -42,20 +42,12 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
 
     useEffect(() => {
         const noEmployees = (employees && employees.length === 0);
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> upstream/master
         if (noEmployees || isRejected) {
             setCollapsed(true);
         }
     }, [employees, isRejected, setCollapsed]);
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> upstream/master
     const leaves =
         employees &&
         employees.length > 0 &&
