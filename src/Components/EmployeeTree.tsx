@@ -4,8 +4,8 @@ import useCollapse from "../Hooks/useCollapse";
 import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
 import IEmployee from "../Interfaces/Employee";
 import NonRootTreeLevel from "../Styles/NonRootTreeLevel";
-import EmployeeTreeitem from "./EmployeeTreeItem";
 import TreeNode from "../Styles/TreeNode";
+import EmployeeTreeitem from "./EmployeeTreeItem";
 
 interface IToLeavesParams {
     employees: IEmployee[];
