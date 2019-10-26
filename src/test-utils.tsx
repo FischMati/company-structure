@@ -1,5 +1,6 @@
 import {mount} from "enzyme";
 import {default as jest_fetch_mock, GlobalWithFetchMock} from "jest-fetch-mock";
+import {act} from "react-dom/test-utils";
 
 export const waitForAsync = () => new Promise((resolve) => setImmediate(resolve));
 
@@ -13,7 +14,9 @@ export const mountAsync =
     async (component: any) => {
         const mounted = mount(component);
 
-        await updateAsync(mounted);
+        await act(async () => {
+            await updateAsync(mounted);
+        });
 
         return mounted;
     };
@@ -24,8 +27,10 @@ export const clickButton =
 
 export const clickButtonAsync =
     async (mounted: any, at = 0) => {
-        clickButton(mounted, at);
-        await updateAsync(mounted);
+        await act(async () => {
+            clickButton(mounted, at);
+            await updateAsync(mounted);
+        });
     };
 
 export const mockFetch = () => {
