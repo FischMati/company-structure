@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
-import {FetchOptions} from "react-async";
 import useCollapse from "../Hooks/useCollapse";
 import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
+import useNotifyStatus from "../Hooks/useNotifyStatus";
 import IEmployee from "../Interfaces/Employee";
 import NonRootTreeLevel from "../Styles/NonRootTreeLevel";
 import TreeNode from "../Styles/TreeNode";
@@ -9,22 +9,22 @@ import EmployeeTreeitem from "./EmployeeTreeItem";
 
 interface IToLeavesParams {
     employees: IEmployee[];
-    fetchOptions: FetchOptions<any>;
+    onRejectedStatusChange: (isRejected: boolean) => void;
 }
 
 const toLeaves =
-    ({employees, fetchOptions}: IToLeavesParams) =>
+    ({employees, ...constantProps}: IToLeavesParams) =>
         employees.map(
             (employee: IEmployee) =>
-                (<EmployeeTree root={employee} fetchOptions={fetchOptions}/>),
+                (<EmployeeTree root={employee} {...constantProps} />),
         );
 
 interface IProps {
     root: IEmployee;
-    fetchOptions: FetchOptions<any>;
+    onRejectedStatusChange: (isRejected: boolean) => void;
 }
 
-const EmployeeTree = ({root, fetchOptions}: IProps) => {
+const EmployeeTree = ({root, onRejectedStatusChange}: IProps) => {
     const { id } = root;
     const {isCollapsed, setCollapsed, toggleCollapsed } = useCollapse();
 
@@ -34,13 +34,15 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
         isFulfilled,
         isRejected,
         run,
-    } = useFetchEmployeesByManager(id, { defer: true, ...fetchOptions});
+    } = useFetchEmployeesByManager(id, { defer: true });
 
     const onRootClick = () => {
         if (!toggleCollapsed()) {
             run();
         }
     };
+
+    useNotifyStatus(onRejectedStatusChange, isRejected);
 
     useEffect(() => {
         const noEmployees = (employees && employees.length === 0);
@@ -56,7 +58,7 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
         !isCollapsed &&
         isFulfilled &&
         (<NonRootTreeLevel>
-            {toLeaves({employees, fetchOptions})}
+            {toLeaves({employees, onRejectedStatusChange})}
         </NonRootTreeLevel>);
 
     return (

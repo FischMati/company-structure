@@ -12,7 +12,7 @@ describe("EmployeeTreeView", () => {
 
     const props = {
         root: rootEmployee,
-        setError: () => {},
+        onRejectedStatusChange: () => {},
     };
 
     fetchMock.mockResponse(
