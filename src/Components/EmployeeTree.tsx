@@ -3,7 +3,9 @@ import {FetchOptions} from "react-async";
 import useCollapse from "../Hooks/useCollapse";
 import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
 import IEmployee from "../Interfaces/Employee";
+import NonRootTreeLevel from "../Styles/NonRootTreeLevel";
 import EmployeeTreeitem from "./EmployeeTreeItem";
+import TreeNode from "../Styles/TreeNode";
 
 interface IToLeavesParams {
     employees: IEmployee[];
@@ -53,12 +55,12 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
         employees.length > 0 &&
         !isCollapsed &&
         isFulfilled &&
-        (<ul>
+        (<NonRootTreeLevel>
             {toLeaves({employees, fetchOptions})}
-        </ul>);
+        </NonRootTreeLevel>);
 
     return (
-            <li>
+            <TreeNode>
                 <EmployeeTreeitem
                     employee={root}
                     isPending={isPending}
@@ -66,7 +68,7 @@ const EmployeeTree = ({root, fetchOptions}: IProps) => {
                 />
 
                 {leaves}
-            </li>
+            </TreeNode>
     );
 };
 

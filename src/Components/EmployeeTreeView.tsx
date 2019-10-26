@@ -3,6 +3,7 @@ import Alert from "reactstrap/lib/Alert";
 import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
 import useFetchError from "../Hooks/useFetchError";
 import Tree from "../Styles/Tree";
+import TreeLevel from "../Styles/TreeLevel";
 import EmployeeTree from "./EmployeeTree";
 
 const EmployeeTreeView = () => {
@@ -17,9 +18,9 @@ const EmployeeTreeView = () => {
             }
 
             <Tree>
-                <ul>
+                <TreeLevel>
                     { data && <EmployeeTree root={data[0]} fetchOptions={childFetchOptions}/> }
-                </ul>
+                </TreeLevel>
             </Tree>
         </>
     );
