@@ -1,13 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import Alert from "reactstrap/lib/Alert";
 import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
-import useFetchError from "../Hooks/useFetchError";
 import Tree from "../Styles/Tree";
+import TreeLevel from "../Styles/TreeLevel";
 import EmployeeTree from "./EmployeeTree";
 
 const EmployeeTreeView = () => {
-    const { fetchError: childError, fetchOptions: childFetchOptions } = useFetchError();
-    const { data, error: rootError } = useFetchEmployeesByManager(0);
+    const { data, isRejected: rootError } = useFetchEmployeesByManager(0);
+    const [childError, setChildError] = useState(false);
 
     return (
         <>
@@ -17,9 +17,9 @@ const EmployeeTreeView = () => {
             }
 
             <Tree>
-                <ul>
-                    { data && <EmployeeTree root={data[0]} fetchOptions={childFetchOptions}/> }
-                </ul>
+                <TreeLevel>
+                    { data && <EmployeeTree root={data[0]} onRejectedStatusChange={setChildError} /> }
+                </TreeLevel>
             </Tree>
         </>
     );

@@ -5,7 +5,15 @@ export const EmployeeButton = styled(Button)`
     position: relative;
     z-index: 100;
 
-      &:before {
+    padding: 5px 10px;
+    text-decoration: none;
+    display: inline-block;
+    
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+
+    &:before {
         content: '';
         position: absolute;
         right: 4px;
@@ -20,7 +28,8 @@ export const EmployeeButton = styled(Button)`
         opacity: 0;
         transition: opacity 0.5s;
         animation: 0.8s linear infinite rotate;
-      }
+    }
+    
       &.sending{        
         &:before {
           transition-duration: 1s;
