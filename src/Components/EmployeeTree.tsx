@@ -1,7 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import useCollapse from "../Hooks/useCollapse";
 import useFetchEmployeesByManager from "../Hooks/useFetchEmployeesByManager";
-import useNotifyStatus from "../Hooks/useNotifyStatus";
+import useForceFlag from "../Hooks/useForceFlag";
+import useNotifyFlag from "../Hooks/useNotifyFlag";
 import IEmployee from "../Interfaces/Employee";
 import NonRootTreeLevel from "../Styles/NonRootTreeLevel";
 import TreeNode from "../Styles/TreeNode";
@@ -42,15 +43,10 @@ const EmployeeTree = ({root, onRejectedStatusChange}: IProps) => {
         }
     };
 
-    useNotifyStatus(onRejectedStatusChange, isRejected);
+    const noEmployees = (employees && employees.length === 0);
 
-    useEffect(() => {
-        const noEmployees = (employees && employees.length === 0);
-
-        if (noEmployees || isRejected) {
-            setCollapsed(true);
-        }
-    }, [employees, isRejected, setCollapsed]);
+    useNotifyFlag(onRejectedStatusChange, isRejected);
+    useForceFlag(noEmployees || isRejected, setCollapsed);
 
     const leaves =
         employees &&

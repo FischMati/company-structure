@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {mount} from "enzyme";
+import {act} from "react-dom/test-utils";
 import EmployeeFactory from "../Factories/EmployeeFactory";
 import {BASE_API} from "../routes";
 import {clickButtonAsync, mockFetch} from "../test-utils";
